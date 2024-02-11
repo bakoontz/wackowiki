@@ -90,6 +90,8 @@ if ($this->has_access('read')
 
 	if (isset($_POST))
 	{
+
+        $this->set_message("Inside edit.php...");
 		$anchor		= [];
 		$_body		= $_POST['body'] ?? '';
 		$section_id	= (int) ($_POST['section'] ?? 0);
@@ -207,6 +209,7 @@ if ($this->has_access('read')
 				// new page created
 				if (!$this->page)
 				{
+
 					// this is a new page, get page_id via tag for the new created page
 					$this->page['page_id'] = $this->get_page_id($this->tag);
 
@@ -228,7 +231,6 @@ if ($this->has_access('read')
 
 				// now we render it internally to the update the link tables.
 				$this->update_link_table($this->page['page_id'], $body_r);
-
 				$this->page_cache[$this->page['page_id']]	= '';
 
 				// show success message (too much visual clutter)
@@ -238,6 +240,7 @@ if ($this->has_access('read')
 				$this->set_message($message, 'success'); */
 
 				// forward to show handler
+                $this->set_message("Fowarding to show.php...");
 				$this->http->redirect($this->href('', '' , $anchor));
 			}
 		}
