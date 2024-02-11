@@ -5,6 +5,12 @@ if (!defined('IN_WACKO'))
 	exit;
 }
 
+ini_set('display_errors', 'on');
+ini_set('log_errors', 'on');
+ini_set('display_startup_errors', 'on');
+ini_set('error_reporting', E_ALL);
+ini_set('error_log', '/var/log/php-errors.log');
+
 // engine class
 class Wacko
 {
@@ -2201,7 +2207,6 @@ class Wacko
 							'latest			= 2 ' . // 2 - modified page
 						'WHERE page_id = ' . (int) $page_id . ' ' .
 						'LIMIT 1');
-
 					// log event
 					if ($this->page['comment_on_id'])
 					{
@@ -5437,7 +5442,7 @@ class Wacko
 				// include_tail is for extensions to use for closing markup tags, i.e. if return'ing early
 				$include_tail = '';
 				ob_start();
-				include $__pathname;
+  				include $__pathname;
 
 				if (isset($tpl))
 				{
@@ -5544,11 +5549,14 @@ class Wacko
 		$formatter	= mb_strtolower(trim($formatter));
 		$error		= '<em>' . Ut::perc_replace($this->_t('FormatterNotFound'), '<code>' . $formatter . '</code>') . '</em>';
 
-		$text		= $this->include_buffered(Ut::join_path(FORMATTER_DIR, $formatter . '.php'), $error, compact('text', 'options'));
+		#$text		= $this->include_buffered(Ut::join_path(FORMATTER_DIR, $formatter . '.php'), $error, compact('text', 'options'));
+        $text		= $this->include_buffered($this->BuildFullpathFromMultipath($formatter . '.php', FORMATTER_DIR), $error, compact('text', 'options'));
 
 		if ($formatter == 'wacko' && $this->db->typografica)
 		{
-			$text = $this->include_buffered(Ut::join_path(FORMATTER_DIR, 'typografica.php'), $error, compact('text'));
+			#$text = $this->include_buffered(Ut::join_path(FORMATTER_DIR, 'typografica.php'), $error, compact('text'));
+            $text = $this->include_buffered($this->BuildFullpathFromMultipath('typografica.php', FORMATTER_DIR), $error, compact('text'));
+
 		}
 
 		return $text;
@@ -9691,5 +9699,56 @@ class Wacko
 
 		$this->http->redirect($this->href('', $to, Ut::random_token(4)));
 		// NEVER BEEN HERE
+	}
+
+    /**
+     * Build a (possibly valid) filepath from a delimited list of paths
+     *
+     * This function takes a list of paths delimited by ":"
+     * (Unix-style), ";" (Window-style), or "," (Wikka-style)  and
+     * attempts to construct a fully-qualified pathname to a specific
+     * file.  By default, this function checks to see if the file
+     * pointed to by the fully-qualified pathname exists.  First valid
+     * match wins.  Disabling this feature will return the first valid
+     * constructed path (i.e, a path containing a valid directory, but
+     * not necessarily pointing to an existant file).
+     *
+     * @param string $filename mandatory: filename to be used in
+     *          construction of fully-qualified filepath
+     * @param string $pathlist mandatory: list of
+     *          paths (delimited by ":", ";", or ",")
+     * @param  string path_sep Use this to override the OS default
+     *              DIRECTORY_SEPARATOR (usually used in conjunction with CSS pa
+th
+     *              generation). Default is DIRECTORY_SEPARATOR.
+     * @param  boolean $checkIfFileExists optional: if TRUE, returns
+     *          only a pathname that points to a file that exists
+     *          (default)
+     * @return string A fully-qualified pathname or NULL if none found
+     */
+    function BuildFullpathFromMultipath($filename, $pathlist, $path_sep = DIRECTORY_SEPARATOR, $checkIfFileExists=TRUE): string
+    {
+        $paths = preg_split('/;|:|,/', $pathlist);
+        if(empty($paths[0])) return NULL;
+        if(FALSE === $checkIfFileExists)
+        {
+            // Just return first directory that exists
+            foreach($paths as $path)
+            {
+                $path = trim($path);
+                if(file_exists($path))
+                {
+                    return $path.$path_sep.$filename;
+                }
+            }
+            return NULL;
+        }
+        foreach($paths as $path)
+        {
+            $path = trim($path);
+            $fqfn = $path.$path_sep.$filename;
+            if(file_exists($fqfn)) return $fqfn;
+        }
+        return NULL;
 	}
 }

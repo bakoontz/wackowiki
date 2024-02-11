@@ -9,7 +9,8 @@ echo '<!--notypo-->';
 $typo = $this->db->typografica;
 $this->db->typografica = false;
 
-include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+#include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+include $this->BuildFullpathFromMultipath('wiki.php', FORMATTER_DIR);
 
 $this->db->typografica = $typo;
 
