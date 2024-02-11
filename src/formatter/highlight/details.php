@@ -20,4 +20,5 @@ $open	= $options['open'] ? ' open' : '';
 
 $tpl->open		= $open;
 $tpl->s_title	= $title;
-$tpl->include	= include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+#$tpl->include	= include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+$tpl->include	= include $this->BuildFullpathFromMultipath('wiki.php', FORMATTER_DIR);

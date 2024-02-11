@@ -134,6 +134,9 @@ class WackoFormatter
 			// strikethrough
 			"--\S--|" .
 			"--(\S.*?[^- \t\n\r])--|" .
+            // Bible verse
+            "\@\@[:A-Za-z0-9 ]*\@\@|" .
+            //"\@\@(\S.*?[^- \t\n\r])\@\@|" .
 			// list including multilevel
 			"\n(\t+|([ ]{2})+)(-|\*|([a-zA-Z]{1,3}|[ivIV]+|(\d{1,3}))[\.\)](\#\d{1,3})?)?|" .
 			// media links
@@ -604,6 +607,13 @@ class WackoFormatter
 		{
 			return '<del>' . preg_replace_callback($this->LONG_REGEX, $callback, $matches[1]) . '</del>';
 		}
+        // Bible verse
+            //else if (preg_match('/^\@\@((\S.*?\S)|(\S))\@\@$/us', $thing, $matches))
+            else if (preg_match('/^\@\@([:A-Za-z0-9 ]*)\@\@$/us', $thing, $matches))
+		{
+			return '<span class="verse">' . preg_replace_callback($this->LONG_REGEX, $callback, $matches[1]) . '</span>';
+        }
+        //
 		// definitions
 		else if (  preg_match('/^\(\?(.+?)(==|\|\|)(.*)\?\)$/u', $thing, $matches)
 				|| preg_match('/^\(\?(\S+)(\s+(.+))?\?\)$/u', $thing, $matches))

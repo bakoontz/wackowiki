@@ -35,4 +35,5 @@ if ($options['icon'])
 
 $tpl->style		= 'info';
 $tpl->t_title	= $options['title'] ?? null;
-$tpl->include	= include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+#$tpl->include	= include Ut::join_path(FORMATTER_DIR, 'wiki.php');
+$tpl->include	= include $this->BuildFullpathFromMultipath('wiki.php', FORMATTER_DIR);
