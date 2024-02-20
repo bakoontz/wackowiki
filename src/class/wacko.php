@@ -880,7 +880,7 @@ class Wacko
 				return $text;
 			}
 		}
-
+        return $name;
 		// NB: must return NULL if no translation available, it's API
 	}
 
@@ -5512,6 +5512,8 @@ class Wacko
 		}
 
 		$result = $this->include_buffered($action . '.php', $error, $params, ACTION_DIR);
+        #echo $this->BuildFullpathFromMultipath($action . '.php', ACTION_DIR);
+		#$result = $this->include_buffered($this->BuildFullpathFromMultipath($action . '.php', ACTION_DIR), $error, $params);
 
 		$this->start_link_tracking();
 		$this->http->no_cache();
@@ -9714,16 +9716,12 @@ class Wacko
      *          construction of fully-qualified filepath
      * @param string $pathlist mandatory: list of
      *          paths (delimited by ":", ";", or ",")
-     * @param  string path_sep Use this to override the OS default
-     *              DIRECTORY_SEPARATOR (usually used in conjunction with CSS pa
-th
-     *              generation). Default is DIRECTORY_SEPARATOR.
      * @param  boolean $checkIfFileExists optional: if TRUE, returns
      *          only a pathname that points to a file that exists
      *          (default)
      * @return string A fully-qualified pathname or NULL if none found
      */
-    function BuildFullpathFromMultipath($filename, $pathlist, $path_sep = DIRECTORY_SEPARATOR, $checkIfFileExists=TRUE): string
+    function BuildFullpathFromMultipath($filename, $pathlist, $checkIfFileExists=TRUE): ?string
     {
         $paths = preg_split('/;|:|,/', $pathlist);
         if(empty($paths[0])) return NULL;
@@ -9735,7 +9733,8 @@ th
                 $path = trim($path);
                 if(file_exists($path))
                 {
-                    return $path.$path_sep.$filename;
+                    //return $path.$path_sep.$filename;
+                    return Ut::join_path($path, $filename);
                 }
             }
             return NULL;
@@ -9743,7 +9742,8 @@ th
         foreach($paths as $path)
         {
             $path = trim($path);
-            $fqfn = $path.$path_sep.$filename;
+            //$fqfn = $path.$path_sep.$filename;
+            $fqfn = Ut::join_path($path, $filename);
             if(file_exists($fqfn)) return $fqfn;
         }
         return NULL;
