@@ -44,7 +44,7 @@
 				<input type="text" id="issue" name="issue" size="10" maxlength="10" value="[ ' issue | e attr ' ]" title="[ ' only | e attr ' ]" tabindex="1" autofocus>
 			</p>
 			<p>
-				<label for="issue">[ ' format_t: URL ' ]</label>
+				<label for="url">[ ' format_t: URL ' ]</label>
 				<input type="text" id="url" name="url" size="128" maxlength="255" value="[ ' url | e attr ' ]" title="[ ' only | e attr ' ]" tabindex="1" autofocus>
 			</p>
 			<p>
