@@ -32,7 +32,7 @@ Options:
 EOD;
 
 // set defaults
-$help		??= 1;
+$help		??= 0;
 $lang		??= '';
 $letter		??= '';
 $max		??= null;
