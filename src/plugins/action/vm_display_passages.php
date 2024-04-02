@@ -7,9 +7,9 @@ if (!defined('IN_WACKO'))
 
 $info = <<<EOD
 Description:
-	Create a new resource and new verses page for that resource
+	Display passages associated with a resource, sorted by page ascending.
 Usage:
-	{{vm_new_resource}}
+	{{vm_display_passages}}
 EOD;
 
 // set defaults
@@ -17,9 +17,38 @@ $help	??= 0;
 
 if ($help)
 {
-	$tpl->help	= $this->help($info, 'vm_new_resource');
+	$tpl->help	= $this->help($info, 'vm_display_passages');
 	return;
 }
+
+$resource_page_id = $this->get_parent_id();
+$records = $this->db->load_all(
+    'select * from vm_passage a
+     right join vm_passage_resource b
+     on a.id = b.passage_id
+     left join vm_resource c
+     on b.resource_id = c.id
+     left join vm_book d
+     on a.book_id = d.id
+     where c.page_id = ' . $resource_page_id . '
+     order by page asc;');
+
+foreach($records as $record) {
+	$tpl->enter('m_');
+	$verse = $record['book_abbrev'];
+	if($record['chapter_start'] == $record['chapter_end'] &&
+       $record['verse_start'] == $record['verse_end']) {
+		$verse .= ' ' . $record['chapter_start'] . ':' . $record['verse_start'];
+	} else {
+ 		$verse .= ' ' . $record['chapter_start'] . ':' . $record['verse_start'] . '-' . $record['chapter_end'] . ':' . $record['verse_end'];
+	} 
+	$tpl->verse = $verse;
+	$tpl->notes = $record['notes'];
+	$tpl->page = $record['page'];
+	$tpl->leave();
+}
+
+return;
 
 if(@$_POST['_action'] === 'vm_new_resource') {
     $root_tag = "Resources";
