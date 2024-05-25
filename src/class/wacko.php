@@ -5551,13 +5551,13 @@ class Wacko
 		$formatter	= mb_strtolower(trim($formatter));
 		$error		= '<em>' . Ut::perc_replace($this->_t('FormatterNotFound'), '<code>' . $formatter . '</code>') . '</em>';
 
-		$text		= $this->include_buffered(Ut::join_path(FORMATTER_DIR, $formatter . '.php'), $error, compact('text', 'options'));
-        #$text		= $this->include_buffered($this->BuildFullpathFromMultipath($formatter . '.php', FORMATTER_DIR), $error, compact('text', 'options'));
+		#$text		= $this->include_buffered(Ut::join_path(FORMATTER_DIR, $formatter . '.php'), $error, compact('text', 'options'));
+        $text		= $this->include_buffered($this->BuildFullpathFromMultipath($formatter . '.php', FORMATTER_DIR), $error, compact('text', 'options'));
 
 		if ($formatter == 'wacko' && $this->db->typografica)
 		{
-			$text = $this->include_buffered(Ut::join_path(FORMATTER_DIR, 'typografica.php'), $error, compact('text'));
-            #$text = $this->include_buffered($this->BuildFullpathFromMultipath('typografica.php', FORMATTER_DIR), $error, compact('text'));
+			#$text = $this->include_buffered(Ut::join_path(FORMATTER_DIR, 'typografica.php'), $error, compact('text'));
+            $text = $this->include_buffered($this->BuildFullpathFromMultipath('typografica.php', FORMATTER_DIR), $error, compact('text'));
 
 		}
 
