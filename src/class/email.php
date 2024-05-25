@@ -144,6 +144,18 @@ class Email
 
 			$mail->send();
 
+			/* if (!$mail->Send())
+			{
+				$message = "Mailer Error: " . $mail->ErrorInfo;
+				$this->engine->log(4, $message);
+				exit;
+			}
+			else
+			{
+				$message = "Message has been sent.";
+				$this->engine->log(5, $message);
+			} */
+
 			$send_ok = true;
 		}
 

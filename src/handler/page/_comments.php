@@ -230,6 +230,11 @@ if ($this->has_access('read'))
 			$tpl->title		= $this->_t('ShowComments');
 			$tpl->text		= $have_comments;
 		}
+		else
+		{
+			// TODO: add message if registered users can comment this page
+			// e.g. 'Log in or create an account to post a comment.'
+		}
 	}
 
 	$tpl->leave();

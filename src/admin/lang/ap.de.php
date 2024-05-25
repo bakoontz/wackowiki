@@ -301,7 +301,7 @@ $ap_translation = [
 	'MenuItems'					=> 'Menüpunkte:',
 	'MenuItemsInfo'				=> 'Standardanzahl der angezeigten Menüelemente (setzt die Unterstützung durch das Layout vorraus).',
 
-	'HandlerSection'			=> 'Handlers',
+	'HandlerSection'			=> 'Handler',
 	'HideRevisions'				=> 'Seitenversionen ausblenden:',
 	'HideRevisionsInfo'			=> 'Die Standardanzeige der Seitenversionen.',
 	'AttachmentHandler'			=> 'Datei-Handler aktivieren:',
@@ -599,7 +599,7 @@ $ap_translation = [
 	],
 	'PermissionsPolicy'			=> 'Permissions Policy:',
 	'PermissionsPolicyInfo'		=> 'Der HTTP Permissions-Policy-Header bietet einen Mechanismus zum expliziten Aktivieren oder Deaktivieren verschiedener leistungsstarker Browserfunktionen.',
-	'ReferrerPolicy'			=> 'Referrer-Policy:',
+	'ReferrerPolicy'			=> 'Referrer Policy:',
 	'ReferrerPolicyInfo'		=> 'Der Referrer-Policy-HTTP-Header bestimmt, welche Referrer-Informationen, die im Referer-Header gesendet werden, in die Anfragen aufgenommen werden sollen.',
 	'ReferrerPolicyModes'	=> [
 		'0'		=> '[off]',
@@ -655,7 +655,7 @@ $ap_translation = [
 	'FormatterSettingsInfo'		=> 'Gruppe von Parametern, die für die Feinabstimmung der Plattform verantwortlich sind. Ändere sie nicht, es sei denn, du bist mit ihrer Funktionsweise vertraut.',
 	'FormatterSettingsUpdated'	=> 'Formatierungseinstellungen aktualisiert',
 
-	'TextHandlerSection'		=> 'Text Handler:',
+	'TextHandlerSection'		=> 'Text Handler ',
 	'Typografica'				=> 'Typografischer Korrektor:',
 	'TypograficaInfo'			=> 'Durch das Deaktivieren wird der Vorgang des Hinzufügens von Kommentaren und des Speicherns von Seiten geringfügig beschleunigt.',
 	'Paragrafica'				=> 'Paragrafica Markierungen:',
@@ -918,8 +918,6 @@ $ap_translation = [
 	'SvgSanitizerInfo'			=> 'Dadurch können hochgeladene SVG-Dateien bereinigt werden, um zu verhindern, dass anfällige SVG/XML-Dateien hochgeladen werden.',
 	'TranslitFileName'			=> 'Translitieren der Dateinamen:',
 	'TranslitFileNameInfo'		=> 'Soweit dies möglich ist und keine Unicode-Zeichen erforderlich sind, wird dringend empfohlen, nur alphanumerische Zeichen zu akzeptieren.',
-	'TranslitCaseFolding'		=> 'Konvertiere Dateinamen in Kleinbuchstaben:',
-	'TranslitCaseFoldingInfo'	=> 'Diese Option ist nur bei aktiver Transliteration wirksam.',
 
 	'Thumbnails'				=> 'Vorschaubilder',
 	'CreateThumbnail'			=> 'Vorschaubild erstellen:',

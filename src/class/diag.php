@@ -24,8 +24,6 @@ class Diag
 		{
 			if (($config['debug_admin_only'] && $engine->is_admin()) || !$config['debug_admin_only'])
 			{
-				// [A] Program execution statistics
-
 				$overall_time = microtime(true) - WACKO_STARTED;
 
 				echo '<div id="debug">' .
@@ -42,7 +40,7 @@ class Diag
 					echo "\t<li>Memory allocated: " . $engine->factor_multiples($execmem, 'binary', true, true) . "</li>\n";
 				}
 
-				#echo "<li>UTC: " . gmdate('Y-m-d H:i:s', time()) . "</li>\n";
+				#echo "<li>UTC: " . date('Y-m-d H:i:s', time()) . "</li>\n";
 				echo "\t<li>Overall time taken: " . $engine->number_format($overall_time, 3) . " sec. </li>\n";
 
 				if ($config['debug'] >= 2)
@@ -106,13 +104,10 @@ class Diag
 
 					echo "\t\t</ol>\n\t</li>\n";
 				}
-
 				echo "</ul>\n";
 
 				if ($config['debug'] >= 2)
 				{
-					// [B] Language data
-
 					$user		= $engine->get_user();
 					$lang_data	= [
 						'Multilanguage: ' . 				($config['multilanguage'] == 1 ? 'true' : 'false'),
@@ -125,7 +120,7 @@ class Diag
 						'Config language: ' .				$config['language'],
 						'User selected language: ' .		($engine->user_lang ?? ''),
 						'HTML Entities Charset: ' .			HTML_ENTITIES_CHARSET,
-						# 'Disable cache: ' .				($engine->disable_cache ? 'true' : 'false'),
+						// 'Disable cache: ' .				($engine->disable_cache === true ? 'true' : 'false'),
 					];
 
 					echo '<p class="debug">Language data</p>' . "\n<ul>\n";
@@ -140,8 +135,6 @@ class Diag
 
 				if ($config['debug'] >= 3)
 				{
-					// [C] MySQL character set
-
 					$query = "SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation\_connection';";
 
 					if ($r = $engine->db->load_all($query, true))
@@ -165,10 +158,11 @@ class Diag
 						echo "\t<li>" . 'SESSION' . ': ' . $r['@@SESSION.sql_mode'] . "</li>\n";
 						echo "</ul>\n";
 					}
+				}
 
-					// [D] Environment data
-
-					$env_data	= [
+				if ($config['debug'] >= 3)
+				{
+					$session_data	= [
 						'session_id(): ' .		$engine->sess->id(),
 						'Base URL: ' .			$config['base_url'],
 						'Rewrite Mode: ' .		($config['rewrite_mode'] ? 'on' : 'off'),
@@ -180,25 +174,22 @@ class Diag
 						'TLS: ' .				(isset($config['tls']) ? 'on' : 'off'),
 						'TLS implicit: ' .		($config['tls_implicit'] ? 'on' : 'off'),
 						'Cookie path: ' .		$config['cookie_path'],
-						# 'GZIP: ' .			(@extension_loaded('zlib') ? 'On' : 'Off'),
+						// 'GZIP: ' .			(@extension_loaded('zlib') ? 'On' : 'Off'),
 					];
 
-					echo '<p class="debug">Environment data</p>' . "\n<ul>\n";
+					echo '<p class="debug">Session data</p>' . "\n<ul>\n";
 
-					foreach ($env_data as $env_item)
+					foreach ($session_data as $session_item)
 					{
-						echo "\t<li>" . $env_item . "</li>\n";
+						echo "\t<li>" . $session_item . "</li>\n";
 					}
 
 					echo "</ul>\n";
+				}
 
-					// [E] Session data
-
-					$session = $engine->sess->toArray();
-					unset($session['user_profile']['password']);
-
-					echo '<p class="debug">Session data</p>' . "\n<ul>\n";
-					Ut::debug_print_r($session);
+				if ($config['debug'] >= 3)
+				{
+					Ut::debug_print_r($engine->sess->toArray());
 					Ut::debug_print_r($engine->context);
 
 					if ($engine->is_admin())
@@ -223,13 +214,7 @@ class Diag
 	// add some debug output to DEBUG file and popup-window in browser
 	static function dbg(): void
 	{
-		static $code = [
-			'BLACK'		=> 0,
-			'BLUE'		=> 1,
-			'GOLD'		=> 2,
-			'ORANGE'	=> 3,
-			'RED'		=> 4
-		];
+		static $code = ['BLACK' => 0, 'BLUE' => 1, 'GOLD' => 2, 'ORANGE' => 3, 'RED' => 4];
 
 		if ($args = func_get_args())
 		{

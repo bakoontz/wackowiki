@@ -633,15 +633,13 @@ class Ut
 		return normalizer_normalize($string, $form);
 	}
 
-	static function translit($string, $case_folding = true)
+	static function translit($string)
 	{
-		$lower = $case_folding ? 'Lower()' : '';
-
 		return transliterator_transliterate(
 			"Any-Latin;
 			Latin-ASCII;
 			[\u0100-\u7fff] remove;
-			$lower",
+			Lower()",
 			$string);
 	}
 }

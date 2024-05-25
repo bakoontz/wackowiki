@@ -7,7 +7,7 @@
 	[= xml =
 		<span class="desc-rss-feed">
 			<a href="[ ' href ' ]">
-				<img src="[ ' db: theme_url ' ]icon/spacer.png" title="[ ' _t: ChangesXMLTip ' ]" alt="XML" class="btn-feed btn-sm">
+				<img src="[ ' db: theme_url ' ]icon/spacer.png" title="[ ' _t: ChangesXMLTip ' ]" alt="XML" class="btn-feed">
 			</a>
 		</span>
 		<br><br>
@@ -26,7 +26,7 @@
 							[ ' i icon ' ]
 							[ ' link ' ]
 								[= to =
-									[ ' _t: To ' ]&nbsp;[ ' link ' ]
+									[ ' _t: To ' ]&nbsp;&nbsp;[ ' link ' ]
 								=]
 							[= cluster =
 								<span title="[ ' _t: Cluster ' ]">→ [ ' link ' ]</span>

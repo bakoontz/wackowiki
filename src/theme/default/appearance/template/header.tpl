@@ -55,8 +55,8 @@
 		</div>
 	</div>
 	<nav class="menu-main">
-		<div id="menu-user" class="submenu">
-			<ul>
+		<div id="menu-user">
+			<ol>
 				[= menu menuList =
 					[ ' commit | void  // alternation hack ' ]
 					[= item _ =
@@ -67,9 +67,9 @@
 					=]
 				=]
 				[= dropmenu _ =
-					<li>
-						<a href="#" aria-haspopup="true"><img src="[ ' db: theme_url ' ]icon/spacer.png" alt="-" title="[ ' _t: Bookmarks ' ]" class="btn-overflow-menu btn-sm"></a>
-						<ul class="dropdown" aria-label="submenu">
+					<li class="dropdown">
+						<a href="#" id="menu-more"><img src="[ ' db: theme_url ' ]icon/spacer.png" alt="-" title="[ ' _t: Bookmarks ' ]" class="btn-overflow-menu"></a>
+						<ul class="dropdown_menu">
 							[ '' menu menuList '' ]
 						</ul>
 					</li>
@@ -77,22 +77,22 @@
 				[= addmark _ =
 					<li>
 						<a href="[ ' href ' ]">
-							<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="+" title="[ ' _t: AddBookmark ' ]" class="btn-addbookmark btn-sm">
+							<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="+" title="[ ' _t: AddBookmark ' ]" class="btn-addbookmark">
 						</a>
 					</li>
 				=]
 				[= removemark _ =
 					<li>
 						<a href="[ ' href ' ]">
-							<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="-" title="[ ' _t: RemoveBookmark ' ]" class="btn-removebookmark btn-sm">
+							<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="-" title="[ ' _t: RemoveBookmark ' ]" class="btn-removebookmark">
 						</a>
 					</li>
 				=]
-			</ul>
+			</ol>
 		</div>
 		[ === // control tabs menu === ]
-		<div id="page-handler" class="submenu">
-			<ul>
+		<div id="page-handler">
+			<ul class="submenu">
 
 				[= tab TabList =
 					<li class="[ ' class ' ][ ' active ' ]">
@@ -106,8 +106,8 @@
 					</li>
 				=]
 				[= droptab _ =
-					<li><a href="#" aria-haspopup="true">[ ' _t: PageHandlerMoreTip ' ]<span class="dropdown-arrow">▼</span></a>
-						<ul class="dropdown" aria-label="submenu">
+					<li class="dropdown"><a href="#" id="handler-more">[ ' _t: PageHandlerMoreTip ' ]<span class="dropdown-arrow">▼</span></a>
+						<ul class="dropdown_menu">
 							[ '' tab TabList '' ]
 							[ '' // last empty '' ]
 							<li></li>
@@ -123,7 +123,7 @@
 								<label for="phrase" class="visuallyhidden">[ ' _t: SearchText ' ]</label>
 								<input type="search" name="phrase" id="phrase" size="20" title="[ ' _t: SearchButton ' ]">
 								<button type="submit" title="[ ' _t: SearchButton ' ]" value="[ ' _t: SearchButton ' ]">
-									<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="[ ' _t: SearchButton ' ]" class="btn-search btn-sm">
+									<img src="[ ' db: theme_url ' ]icon/spacer.png" alt="[ ' _t: SearchButton ' ]" class="btn-search">
 								</button>
 							</span>
 						</form>

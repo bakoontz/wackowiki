@@ -95,7 +95,7 @@ else if ($user = $this->get_user())
 					'LIMIT 1');
 
 				// log event
-				# $this->log(6, Ut::perc_replace($this->_t('LogUserSettingsUpdate', SYSTEM_LANG), $user['user_name']));
+				// $this->log(6, Ut::perc_replace($this->_t('LogUserSettingsUpdate', SYSTEM_LANG), $user['user_name']));
 			}
 		}
 	}
@@ -264,8 +264,8 @@ else if ($user = $this->get_user())
 	// GENERAL
 	else
 	{
-		// user is logged in, display config form
 		$tpl->enter('g_');
+		// user is logged in, display config form
 
 		$code = $this->db->load_single(
 			'SELECT email_confirm ' .
@@ -282,12 +282,12 @@ else if ($user = $this->get_user())
 		if (!$user['email_confirm'])
 		{
 			$tpl->confirm	= $this->_t('EmailConfirmed');
-			$tpl->icon		= 'btn-tick btn-sm';
+			$tpl->icon		= 'btn-tick';
 		}
 		else
 		{
 			$tpl->confirm	= $this->_t('EmailConfirm');
-			$tpl->icon		= 'btn-warning btn-sm';
+			$tpl->icon		= 'btn-warning';
 		}
 
 		if (!$user['email'] || $code['email_confirm'])
@@ -333,6 +333,7 @@ else if ($user = $this->get_user())
 		$tpl->userpage		= $this->href('', ($this->db->users_page . '/' . $user['user_name']));
 		$tpl->quota			= $this->factor_multiples($upload_quota, 'binary', true, true);
 		$tpl->pages			= $this->href('', $this->db->users_page, 'profile=' . $user['user_name'], '', 'pages');
+		# $tpl->revisions	= $this->href('', $this->db->users_page, 'profile=' . $user['user_name']);
 		$tpl->comments		= $this->href('', $this->db->users_page, 'profile=' . $user['user_name'], '', 'comments');
 		$tpl->uploads		= $this->href('', $this->db->users_page, 'profile=' . $user['user_name'], '', 'uploads');
 
