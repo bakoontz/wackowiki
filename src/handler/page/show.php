@@ -5,6 +5,10 @@ if (!defined('IN_WACKO'))
 	exit;
 }
 
+// Add BLB header
+#$this->add_html('header', '<meta http-equiv="Content-Security-Policy" content="default-src \'self\' data: gap: https://www.blueletterbible.org \'unsafe-eval\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'; script-src \'self\' https://www.blueletterbible.org \'unsafe-inline\' \'unsafe-eval\'; media-src *">');
+$this->add_html('header', '<script src="https://www.blueletterbible.org/assets-v3/scripts/blbToolTip/BLB_ScriptTagger-min.js" type="text/javascript"></script>');
+
 // redirect from comment page to the commented one
 if (isset($this->page['latest']) && $this->page['comment_on_id'] && !$this->page['deleted'])
 {

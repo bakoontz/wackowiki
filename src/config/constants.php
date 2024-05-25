@@ -11,11 +11,9 @@ const CONFIG_DEFAULTS				= 'config/config_defaults.php';
 const SITE_LOCK						= 'config/lock';
 const AP_LOCK						= 'config/lock_ap';
 
-const ACTION_DIR					= 'plugins/action:action';
-const FORMATTER_DIR					= 'plugins/formatter:formatter';
-#const FORMATTER_DIR					= 'formatter';
-#const HANDLER_DIR					= 'handler';
-const HANDLER_DIR					= 'plugins/handler:handler';
+const ACTION_DIR					= 'action';
+const FORMATTER_DIR					= 'formatter';
+const HANDLER_DIR					= 'handler';
 const IMAGE_DIR						= 'image';
 const LANG_DIR						= 'lang';
 const THEME_DIR						= 'theme';
